@@ -4,8 +4,8 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
-import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.NumberPicker
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,9 +21,9 @@ class MainActivity : AppCompatActivity() {
 
         val genders = arrayOf("unassessed", "Skipped", "Incorrect", "Correct", "1 mark")
 
-        picker.setMinValue(0)
-        picker.setMaxValue(genders.size - 1)
-        picker.setDisplayedValues(genders)
-        picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS)
+        picker_weight.setMinValue(0)
+        picker_weight.setMaxValue(genders.size - 1)
+        picker_weight.setDisplayedValues(genders)
+        picker_weight.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS)
     }
 }
