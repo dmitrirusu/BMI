@@ -24,9 +24,39 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <NumberPicker
-            android:layout_centerHorizontal="true"
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_input_layou2t"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Label">
+
+        <EditText
+                android:id="@+id/edit_text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
             android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Label">
+
+        <EditText
+                android:id="@+id/edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <NumberPicker
+
             android:id="@+id/picker"
             android:theme="@style/DefaultNumberPickerTheme"
             android:layout_width="wrap_content" android:layout_height="wrap_content">
