@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">BMI</string>
+    <string name="add_bmi_details">Add BMI Details</string>
+    <string name="enter_personal_detail">Enter Personal Detail</string>
+    <string name="name">Name</string>
+    <string name="calculate_your_body_mass_index">Calculate Your Body Mass Index</string>
+    <string name="weight">Weight</string>
+    <string name="gender">Gender</string>
+    <string name="height">Height</string>
+    <string name="calculate">Calculate</string>
 </resources>

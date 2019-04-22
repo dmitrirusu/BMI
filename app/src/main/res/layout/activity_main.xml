@@ -1,152 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_alignParentTop="true"
-        android:id="@+id/appbarlayout"
-        android:elevation="4dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
             android:paddingTop="24dp"
+            android:elevation="4dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/gradient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintStart_toStartOf="parent" android:id="@+id/toolbar">
 
-        <ImageView
-                android:layout_gravity="center_vertical"
+        <android.support.v7.widget.AppCompatImageView
                 android:src="@drawable/back_arrow"
+                android:layout_width="50dp"
+                android:padding="12dp"
                 android:alpha=".25"
-                android:padding="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="?actionBarSize"/>
+                android:layout_height="50dp"/>
 
-        <TextView android:layout_width="match_parent"
-                  android:text="Add BMI Details"
-                  android:textSize="22sp"
-                  android:alpha="0.75"
-                  android:gravity="center"
-                  android:layout_marginRight="60dp"
-                  android:textColor="@android:color/white"
-                  android:layout_height="wrap_content"/>
+        <android.support.v7.widget.AppCompatTextView
+                android:text="@string/add_bmi_details"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:layout_marginRight="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
     </android.support.v7.widget.Toolbar>
 
-    <TextView android:layout_width="wrap_content"
-              android:text="Enter Personal Detail"
-              android:layout_height="wrap_content"
-              android:textColor="#19769f"
-              android:layout_alignStart="@+id/toolbar"
-              android:layout_alignEnd="@+id/toolbar"
-              android:layout_marginTop="36dp"
-              app:layout_constraintStart_toStartOf="parent"
-              android:textSize="32sp"
-              app:layout_constraintTop_toBottomOf="@+id/toolbar"
-              app:layout_constraintEnd_toEndOf="@+id/toolbar"
-              app:layout_constraintHorizontal_bias="0.139" android:id="@+id/textView"/>
-
-
-    <android.support.design.widget.TextInputLayout
-            android:id="@+id/text_input_layout"
+    <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            android:text="@string/enter_personal_detail"
+            android:textSize="30sp"
+            android:textColor="@color/textColor"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="30dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="30dp"
-            android:hint="Label">
+            android:layout_margin="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:id="@+id/appCompatTextView"/>
 
-        <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/contract_receipt_number"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:background="@drawable/rounded_corners"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:singleLine="true"
-                android:textSize="17sp"/>
+    <android.support.v7.widget.AppCompatEditText
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/textInputLayout"
+            android:background="@drawable/et_round_corners"
+            android:layout_width="match_parent"
+            android:hint="@string/name"
+            android:paddingLeft="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
 
-
-    </android.support.design.widget.TextInputLayout>
-
+            android:paddingRight="10dp"
+            android:layout_height="50dp"/>
 
     <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/text_repeat_payment"
+            android:text="@string/calculate_your_body_mass_index"
+            android:layout_margin="40dp"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="42dp"
-            android:gravity="center"
-            android:text="Calculate Your Body Mass Index"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintLeft_toRightOf="parent"
-            android:textColor="#d9d9d9"
-            app:layout_constraintTop_toBottomOf="@+id/text_input_layout"/>
+            android:layout_marginStart="40dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/grayText"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+            android:id="@+id/appCompatTextView2"/>
 
 
     <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/tw_weight"
+            android:text="@string/weight"
             android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Weigth"
-            tools:layout_editor_absoluteY="333dp"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2"
+            android:id="@+id/appCompatTextView4"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintTop_toBottomOf="@id/text_repeat_payment"
-            app:layout_constraintEnd_toStartOf="@+id/tw_height"/>
-
+            app:layout_constraintEnd_toStartOf="@+id/appCompatTextView3"/>
 
     <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/tw_height"
+            android:text="@string/height"
             android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Height"
-            app:layout_constraintTop_toBottomOf="@id/text_repeat_payment"
-
-            tools:layout_editor_absoluteY="333dp"
-            app:layout_constraintStart_toEndOf="@+id/tw_weight"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2"
+            android:id="@+id/appCompatTextView3"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/appCompatTextView4"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintEnd_toStartOf="@+id/tw_gender"/>
+            app:layout_constraintEnd_toStartOf="@+id/appCompatTextView5"/>
 
     <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/tw_gender"
+            android:text="@string/gender"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Gender"
-            app:layout_constraintTop_toBottomOf="@id/text_repeat_payment"
-
-            tools:layout_editor_absoluteY="333dp"
-            app:layout_constraintStart_toEndOf="@+id/tw_height"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2" android:id="@+id/appCompatTextView5"
+            app:layout_constraintStart_toEndOf="@+id/appCompatTextView3" app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-
     <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view"
+            app:cardCornerRadius="4dp"
+            android:elevation="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            card_view:cardCornerRadius="4dp"
-            android:elevation="8dp"
-            card_view:layout_constraintTop_toBottomOf="@+id/tw_weight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView5"
             android:layout_marginEnd="8dp"
-            card_view:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
-            card_view:layout_constraintHorizontal_weight="3"
-            card_view:layout_constraintStart_toStartOf="parent">
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
 
         <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -154,58 +130,47 @@
 
             <NumberPicker
                     android:id="@+id/picker_weight"
-                    android:theme="@style/DefaultNumberPickerTheme"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintHorizontal_bias="0.5"
-                    card_view:layout_constraintEnd_toStartOf="@+id/picker_wheight"
-                    android:layout_marginTop="8dp"
-                    card_view:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginBottom="8dp"
-                    card_view:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toStartOf="@+id/picker_height"/>
 
             <NumberPicker
-                    android:id="@+id/picker_wheight"
-                    android:theme="@style/DefaultNumberPickerTheme"
+                    android:id="@+id/picker_height"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    card_view:layout_constraintStart_toEndOf="@+id/picker_weight"
-                    card_view:layout_constraintHorizontal_bias="0.5"
-                    card_view:layout_constraintEnd_toStartOf="@+id/picker_gender"
-                    android:layout_marginTop="8dp"
-                    card_view:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintStart_toEndOf="@+id/picker_weight"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toStartOf="@+id/picker_gender"/>
 
             <NumberPicker
                     android:id="@+id/picker_gender"
-                    android:theme="@style/DefaultNumberPickerTheme"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    card_view:layout_constraintStart_toEndOf="@+id/picker_wheight"
-                    card_view:layout_constraintHorizontal_bias="0.5"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="8dp"
-                    card_view:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginBottom="8dp"
-                    card_view:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintStart_toEndOf="@+id/picker_height"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
         </android.support.constraint.ConstraintLayout>
+
     </android.support.v7.widget.CardView>
 
-
     <android.support.v7.widget.AppCompatButton
-            android:id="@+id/pay_button"
-            android:layout_width="300dp"
-            android:layout_height="53dp"
-            android:layout_gravity="center"
-            android:background="@drawable/gradient"
-            android:text="Calculate"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            android:layout_marginStart="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/card_view"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_corners_and_gradient"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:textAllCaps="false"
+            android:text="@string/calculate"
+            android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"/>
+
 </android.support.constraint.ConstraintLayout>
