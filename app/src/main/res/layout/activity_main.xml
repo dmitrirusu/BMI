@@ -7,15 +7,15 @@
         android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
-            android:paddingTop="24dp"
-            android:elevation="4dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/gradient"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/toolbar">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/gradient"
+            android:paddingTop="24dp"
+            android:elevation="4dp">
 
         <android.support.v7.widget.AppCompatImageButton
                 app:srcCompat="@drawable/back_arrow"
@@ -255,5 +255,20 @@
             android:text="@string/calculate"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/admob_banner_unit_id">
+    </com.google.android.gms.ads.AdView>
+
 
 </android.support.constraint.ConstraintLayout>

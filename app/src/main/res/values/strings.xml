@@ -1,4 +1,8 @@
 <resources>
+    <!--Sample APP ID, replace with real one efore publishing app-->
+    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_banner_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
     <string name="app_name">BMI</string>
     <string name="add_bmi_details">Add BMI Details</string>
     <string name="enter_personal_detail">Enter Personal Detail</string>
