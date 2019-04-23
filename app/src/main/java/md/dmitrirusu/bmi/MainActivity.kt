@@ -22,9 +22,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupAd() {
-        MobileAds.initialize(this, getString(R.string.admob_app_id))
         mAdView = findViewById(R.id.adView)
-        val adRequest = AdRequest.Builder().addTestDevice("CC9D944688B38D5B36C1FEFA577CBF9A").build()
+        val adRequest = AdRequest.Builder()
+            .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+            .addTestDevice("CC9D944688B38D5B36C1FEFA577CBF9A")
+            .build()
         mAdView.loadAd(adRequest)
     }
 
