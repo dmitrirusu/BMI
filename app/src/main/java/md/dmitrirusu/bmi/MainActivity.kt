@@ -1,5 +1,7 @@
 package md.dmitrirusu.bmi
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -26,9 +28,6 @@ class MainActivity : AppCompatActivity(),
     var wiegth: Double = 0.0
     var height: Double = 0.0
 
-    override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun onContinueButtonClicked(userName: String, gender: String, wiegth: Double, height: Double) {
         this.userName = userName
@@ -39,10 +38,8 @@ class MainActivity : AppCompatActivity(),
         if (mInterstitialAd.isLoaded) {
             mInterstitialAd.show()
         } else {
-            Log.d("TAG", "The interstitial wasn't loaded yet.")
+            Log.d(this.javaClass.simpleName, "The interstitial wasn't loaded yet.")
         }
-
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +49,6 @@ class MainActivity : AppCompatActivity(),
 
         setupAdMob()
         back_arrow.setOnClickListener { onBackPressed() }
-
 
         supportFragmentManager
             .beginTransaction()
@@ -69,35 +65,70 @@ class MainActivity : AppCompatActivity(),
         )
 
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mInterstitialAd.adUnitId = getString(R.string.admob_interstitial_unit_id)
         mInterstitialAd.loadAd(AdRequest.Builder().build())
 
         mInterstitialAd.adListener = object : AdListener() {
             override fun onAdClosed() {
+                mInterstitialAd.loadAd(AdRequest.Builder().build())
+
                 toolbar_text.text = getString(R.string.bmi_details)
-                val massIndex: Double = (wiegth / ((height / 100) * (height / 100)))
+
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragment_container, ResultFragment.newInstance(userName, massIndex))
+                    .replace(R.id.fragment_container, ResultFragment.newInstance(userName, height, wiegth, gender))
                     .addToBackStack(null)
                     .commit()
             }
         }
     }
 
+    override fun onShareButtonPressed() {
+        val massIndex = calculateMassindex()
+
+        val sharingIntent = Intent(android.content.Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.check_my_bmi_result))
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.my_bmi_is, massIndex))
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.where_to_send)))
+    }
+
+    private fun calculateMassindex(): Double {
+        return wiegth / ((height / 100) * (height / 100))
+    }
+
+    override fun onRateButtonPressed() {
+        val uri = Uri.parse("market://details?id=" + this.packageName)
+        val goToMarket = Intent(Intent.ACTION_VIEW, uri)
+        // To count with Play market backstack, After pressing back button,
+        // to taken back to our application, we need to add following flags to intent.
+        goToMarket.addFlags(
+            Intent.FLAG_ACTIVITY_NO_HISTORY or
+                    Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
+                    Intent.FLAG_ACTIVITY_MULTIPLE_TASK
+        )
+        try {
+            startActivity(goToMarket)
+        } catch (e: ActivityNotFoundException) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + this.packageName)
+                )
+            )
+        }
+    }
+
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount > 0) {
             toolbar_text.text = getString(R.string.add_bmi_details)
-
-            supportFragmentManager.popBackStack()
-        } else {
-            super.onBackPressed()
         }
+
+        super.onBackPressed()
     }
 
     private fun setStatusBarTransparent() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-
             window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         }

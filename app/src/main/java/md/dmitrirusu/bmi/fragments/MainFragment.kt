@@ -13,7 +13,7 @@ import com.super_rabbit.wheel_picker.OnValueChangeListener
 import com.super_rabbit.wheel_picker.WheelPicker
 import kotlinx.android.synthetic.main.fragment_main.*
 import md.dmitrirusu.bmi.R
-import md.dmitrirusu.bmi.adapters.WPDayPickerAdapter
+import md.dmitrirusu.bmi.adapters.GenderPickerAdapter
 
 
 class MainFragment : Fragment() {
@@ -28,27 +28,27 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn_continue.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                if(!userName.isEmpty()) {
-                    listener?.onContinueButtonClicked(userName, gender, weigth, heght)
-                }
+        btn_continue.setOnClickListener {
+            if (!userName.isEmpty()) {
+                listener?.onContinueButtonClicked(userName, gender, weigth, heght)
+            } else {
+                tvUserName.error = getString(R.string.please_enter_username)
             }
+        }
 
-        })
-
-        textInputLayout.imeOptions = EditorInfo.IME_ACTION_DONE
-        textInputLayout.addTextChangedListener(object : TextWatcher {
+        tvUserName.imeOptions = EditorInfo.IME_ACTION_DONE
+        tvUserName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                // Just ignore, we don't need this callback
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                // Just ignore, we don't need this callback
             }
 
             override fun afterTextChanged(text: Editable?) {
@@ -57,23 +57,22 @@ class MainFragment : Fragment() {
 
         })
 
-        picker_gender.setAdapter(WPDayPickerAdapter(resources.getStringArray(R.array.gender).toList()))
+        setupGenderPicker()
+        setupWeightPicker()
+        setupHeightPicker()
+    }
+
+    private fun setupGenderPicker() {
+        picker_gender.setAdapter(GenderPickerAdapter(resources.getStringArray(R.array.gender).toList()))
+
         picker_gender.setOnValueChangeListener(object : OnValueChangeListener {
             override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
                 gender = newVal
             }
         })
+    }
 
-
-        picker_weight.setMin(0)
-        picker_weight.setMax(250)
-        picker_weight.scrollTo(50)
-        picker_weight.setOnValueChangeListener(object : OnValueChangeListener {
-            override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                weigth = newVal.toDouble()
-            }
-        })
-
+    private fun setupHeightPicker() {
         picker_height.setMin(0)
         picker_height.setMax(250)
         picker_height.scrollTo(150)
@@ -84,12 +83,23 @@ class MainFragment : Fragment() {
         })
     }
 
+    private fun setupWeightPicker() {
+        picker_weight.setMin(0)
+        picker_weight.setMax(250)
+        picker_weight.scrollTo(50)
+        picker_weight.setOnValueChangeListener(object : OnValueChangeListener {
+            override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
+                weigth = newVal.toDouble()
+            }
+        })
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
     }
 

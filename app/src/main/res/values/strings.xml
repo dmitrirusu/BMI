@@ -1,9 +1,11 @@
 <resources>
-    <!--Sample APP ID, replace with real one efore publishing app-->
+    <!--Sample APP ID, replace with real one before publishing app-->
     <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
     <string name="admob_banner_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    <!---->
 
-    <string name="app_name">BMI</string>
+    <string name="app_name">Dmitrii Rusu</string>
     <string name="add_bmi_details">Add BMI Details</string>
     <string name="enter_personal_detail">Enter Personal Detail</string>
     <string name="name">Name</string>
@@ -14,12 +16,19 @@
     <string name="calculate">Calculate</string>
     <string name="bmi_details">BMI Details</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="body_mass_index">BODY MASS INDEX</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="action_settings">Settings</string>
-    <string name="result_text">Normal BMI range: 18.5kg/m2 - 25kg/m2 Ponderal index: 10.64kg/m3</string>
+    <string name="normal_bmi_range_18_5_kg_m2_25_kg_m2">Normal BMI range 18.5 kg/m2 – 25 kg/m2</string>
+    <string name="ponderal_index_10_64_kg_m3">Ponderal index: 10.64 kg/m3</string>
+    <string name="bmi_normal">Hello %s, you are normal</string>
+    <string name="bmi_below_normal">Hello %s, your BMI is below normal</string>
+    <string name="bmi_above_normal">Hello %s, your BMI is above average</string>
+    <string name="please_enter_username">Please enter your name to continue!</string>
+    <string name="check_my_bmi_result">Check my BMI result</string>
+    <string name="my_bmi_is">Hey, my BMI is %f</string>
+    <string name="where_to_send">Where to send?</string>
+
     <string-array name="gender">
         <item>Male</item>
         <item>Female</item>

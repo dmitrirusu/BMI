@@ -1,30 +1,41 @@
 package md.dmitrirusu.bmi.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_result.*
+import md.dmitrirusu.bmi.R
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 
 private const val PARAM_NAME = "userName"
-private const val PARAM_MASS_INDEX = "massIndex"
+private const val PARAM_HEIGHT = "height"
+private const val PARAM_WEIGHT = "weight"
+private const val PARAM_GENDER = "gender"
+
+private const val MIN_NORMAL_THRESHOLD = 18.5
+private const val MAX_NORMAL_THRESHOLD = 25
 
 class ResultFragment : Fragment() {
-    private var userName: String? = null
-    private var massIndex: Double? = null
+
+    private var weigth: Double = 50.0
+    private var heigth: Double = 150.0
+    private var gender: String? = "Male"
+    private var userName: String? = ""
+
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             userName = it.getString(PARAM_NAME)
-            massIndex = it.getDouble(PARAM_MASS_INDEX)
+            gender = it.getString(PARAM_GENDER)
+            heigth = it.getDouble(PARAM_HEIGHT)
+            weigth = it.getDouble(PARAM_WEIGHT)
         }
     }
 
@@ -32,26 +43,55 @@ class ResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(md.dmitrirusu.bmi.R.layout.fragment_result, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        massIndex?.let {
-            val doubleAsString = BigDecimal(it).setScale(2, RoundingMode.UP).toString()
-            val indexOfDecimal = doubleAsString?.indexOf(".")
-            mass_index_whole_part.text = doubleAsString.substring(0, indexOfDecimal)
-            mass_index_decimal_part.text = doubleAsString.substring(indexOfDecimal)
+        val massIndex = calculateMassIndex(heigth, weigth)
+
+        mass_index_whole_part.text = getWholePart(massIndex)
+        mass_index_decimal_part.text = getDecimalPart(massIndex)
+
+        when {
+            massIndexInNormalRange(massIndex) -> result_message.text = getString(R.string.bmi_normal, userName)
+            massIndexBelowNormal(massIndex) -> result_message.text = getString(R.string.bmi_below_normal, userName)
+            massIndexAboveNormal(massIndex) -> result_message.text = getString(R.string.bmi_above_normal, userName)
         }
 
-
-        result_message.text = "Hello %s, you are normal".format(userName)
+        btn_share.setOnClickListener { listener?.onShareButtonPressed() }
+        btn_rate.setOnClickListener { listener?.onRateButtonPressed() }
     }
 
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    private fun getWholePart(massIndex: Double): String {
+        val (doubleAsString, indexOfDecimal) = getMassIndexAsString(massIndex)
+
+        return doubleAsString.substring(0, indexOfDecimal)
+    }
+
+    private fun getDecimalPart(massIndex: Double): String {
+        val (doubleAsString, indexOfDecimal) = getMassIndexAsString(massIndex)
+
+        return doubleAsString.substring(indexOfDecimal)
+    }
+
+    private fun getMassIndexAsString(massIndex: Double): Pair<String, Int> {
+        val doubleAsString = BigDecimal(massIndex).setScale(2, RoundingMode.UP).toString()
+        val indexOfDecimal = doubleAsString.indexOf(".")
+        return Pair(doubleAsString, indexOfDecimal)
+    }
+
+    private fun massIndexAboveNormal(massIndex: Double) = massIndex > MAX_NORMAL_THRESHOLD
+
+    private fun massIndexBelowNormal(massIndex: Double) = massIndex < MIN_NORMAL_THRESHOLD
+
+    private fun massIndexInNormalRange(massIndex: Double) =
+        massIndex > MIN_NORMAL_THRESHOLD && massIndex < MAX_NORMAL_THRESHOLD
+
+    private fun calculateMassIndex(height: Double, weight: Double): Double {
+        // 'height / 100' because we have height in centimeters, but we need in meters
+        return weight / ((height / 100) * (height / 100))
     }
 
     override fun onAttach(context: Context) {
@@ -69,17 +109,21 @@ class ResultFragment : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+
+        fun onShareButtonPressed()
+
+        fun onRateButtonPressed()
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(userName: String, massIndex: Double) =
+        fun newInstance(userName: String, heigth: Double, weigth: Double, gender: String) =
             ResultFragment().apply {
                 arguments = Bundle().apply {
                     putString(PARAM_NAME, userName)
-                    putDouble(PARAM_MASS_INDEX, massIndex)
+                    putDouble(PARAM_HEIGHT, heigth)
+                    putDouble(PARAM_WEIGHT, weigth)
+                    putString(PARAM_GENDER, gender)
                 }
             }
     }
