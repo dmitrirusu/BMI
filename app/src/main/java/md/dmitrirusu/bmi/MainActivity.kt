@@ -39,6 +39,13 @@ class MainActivity : AppCompatActivity(),
             mInterstitialAd.show()
         } else {
             Log.d(this.javaClass.simpleName, "The interstitial wasn't loaded yet.")
+            toolbar_text.text = getString(R.string.bmi_details)
+
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, ResultFragment.newInstance(userName, height, wiegth, gender))
+                .addToBackStack(null)
+                .commit()
         }
     }
 
