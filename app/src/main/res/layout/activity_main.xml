@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:ads="http://schemas.android.com/tools"
@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:background="@android:color/white"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true" android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -46,27 +46,25 @@
 
     <FrameLayout
             android:id="@+id/fragment_container"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/adView"
-            android:fitsSystemWindows="true"/>
+            app:layout_constraintBottom_toTopOf="@id/adView"/>
 
     <com.google.android.gms.ads.AdView
             xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
-            android:layout_centerHorizontal="true"
+            app:layout_constraintTop_toBottomOf="@id/fragment_container"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_alignParentBottom="true"
             ads:adSize="BANNER"
-            android:layout_marginBottom="48dp"
             ads:adUnitId="@string/admob_banner_unit_id"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+            android:layout_width="match_parent"/>
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
